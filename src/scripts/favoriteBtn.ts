@@ -1,28 +1,23 @@
-const createBtn = () => {
-  return document.createElement('button');
-};
+type Styles = { property: keyof CSSStyleDeclaration; value: string }[];
+
+const btnStyle: Styles = [
+  { property: 'width', value: '100px' },
+  { property: 'height', value: '50px' },
+  { property: 'color', value: 'red' },
+];
 
 const alertFunc = () => {
   alert('Hello World!!');
 };
 
-const setBtnStyle = <T extends keyof CSSStyleDeclaration>(
-  property: T,
-  value: CSSStyleDeclaration[T],
-  btnElm: HTMLButtonElement
-) => {
-  btnElm.style[property] = value;
+const setStyle = (htmlElm: HTMLElement, styles: Styles) => {
+  styles.forEach((val) => {
+    htmlElm.style.setProperty(String(val.property), val.value);
+  });
 };
 
-const setBtnInnerText = (btnElm: HTMLButtonElement, txt: string) => {
-  btnElm.innerText = txt;
-};
-
-const alertBtn = createBtn();
-setBtnInnerText(alertBtn, 'アラート表示');
-setBtnStyle('height', '50px', alertBtn);
-setBtnStyle('width', '100px', alertBtn);
-setBtnStyle('color', 'white', alertBtn);
-setBtnStyle('backgroundColor', 'red', alertBtn);
-alertBtn.addEventListener('click', alertFunc);
-document.body.appendChild(alertBtn);
+const btn = document.createElement('button');
+btn.innerText = 'アラート表示';
+setStyle(btn, btnStyle);
+btn.addEventListener('click', alertFunc);
+document.body.appendChild(btn);
