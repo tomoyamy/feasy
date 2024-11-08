@@ -6,9 +6,12 @@ const btnStyle: Styles = [
   { property: 'color', value: 'red' },
 ];
 
-const alertFunc = () => {
-  alert('Hello World!!');
-};
+const iframeStyle: Styles = [
+  { property: 'position', value: 'absolute' },
+  { property: 'top', value: '50%' },
+  { property: 'left', value: '50%' },
+  { property: 'transform', value: 'translate(-50%, -50%)' },
+];
 
 const setStyle = (htmlElm: HTMLElement, styles: Styles) => {
   styles.forEach((val) => {
@@ -16,8 +19,15 @@ const setStyle = (htmlElm: HTMLElement, styles: Styles) => {
   });
 };
 
+const setDisplayIframe = (child: HTMLElement) => {
+  document.body.appendChild(child);
+};
+
 const btn = document.createElement('button');
-btn.innerText = 'アラート表示';
+const iframe = document.createElement('iframe');
+btn.innerText = 'iframe 表示';
+iframe.src = 'https://www.mouse-jp.co.jp/';
 setStyle(btn, btnStyle);
-btn.addEventListener('click', alertFunc);
+setStyle(iframe, iframeStyle);
+btn.addEventListener('click', () => setDisplayIframe(iframe));
 document.body.appendChild(btn);
